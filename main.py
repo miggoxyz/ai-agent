@@ -3,6 +3,7 @@ import os
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
+from config import SYSTEM_PROMPT
 
 
 def main():
@@ -36,6 +37,7 @@ def generate_content(client, messages, verbose):
     response = client.models.generate_content(
         model="gemini-2.0-flash-001",
         contents=messages,
+        config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT)
     )
     if verbose:
         print("Prompt tokens:", response.usage_metadata.prompt_token_count)
